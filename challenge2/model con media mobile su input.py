@@ -17,11 +17,9 @@ class model:
         # Insert your preprocessing here
 
         X = np.array(X)
-        X = pd.DataFrame(X)
 
         # input smoothing
 
-        data = X.values
         data_smooth = np.zeros(shape=data.shape)
         a = int(np.floor(avgwin / 2))
         tmp = np.array(0)
@@ -49,10 +47,11 @@ class model:
                         count = count + 1
                 data_smooth[k, j] = sum / count
 
-        X = pd.DataFrame(data_smooth, columns = X.columns)
 
         # input smoothing over 
 
+        X = pd.DataFrame(data_smooth)
+        
         X_min = X.min()
         X_max = X.max()
         print(X_max)
