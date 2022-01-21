@@ -1,4 +1,4 @@
-# this is a useful script with which we have been able to test our model.py before submitting them
+#@title Import libraries
 import os
 os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'  
 import tensorflow as tf
@@ -41,14 +41,11 @@ a = model("./")
 
 pred = a.predict(npds[:-864])
 
-err = [0 for i in range(7)]
-for i, p in enumerate(pred):
-    err += (p - np.array(dataset)[-864 + i]) ** 2
-err /= 864
-err = err ** 0.5
-print(err)
+from sklearn.metrics import mean_squared_error
 
 def inspect_multivariate_prediction(X, y, pred, columns, telescope, idx=None):
+    print(mean_squared_error(y[0], pred[0], multioutput='raw_values'))
+
     if(idx==None):
         idx=np.random.randint(0,len(X))
 
@@ -66,4 +63,10 @@ pred = np.array([pred])
 columns = dataset.columns
 telescope = 864
 idx = 0
+inspect_multivariate_prediction(X, y, pred, columns, telescope, idx)
+
+X = np.array([npds[-864:]])
+pred = np.array(np.array([a.predict(npds)]))
+y = np.array([np.array(pd.read_csv('../best.csv'))])
+
 inspect_multivariate_prediction(X, y, pred, columns, telescope, idx)
