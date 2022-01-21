@@ -112,10 +112,10 @@ def getRegression(x, size, stride, degree, k_val_splits=1):
 
 class model:
     def __init__(self, path):
-        self.modelcarpa = tf.keras.models.load_model(os.path.join(path, 'modelcarpa'))
-        self.modelinno = tf.keras.models.load_model(os.path.join(path, 'modelinno'))
+        self.model_e1d1 = tf.keras.models.load_model(os.path.join(path, 'model_e1d1'))
+        self.model_e2d2 = tf.keras.models.load_model(os.path.join(path, 'model_e2d2'))
 
-    def predictcarpa(self, X):
+    def predict_e1d1(self, X):
         # Insert your preprocessing here
         X = np.array(X)
         X = pd.DataFrame(X)
@@ -128,19 +128,16 @@ class model:
 
         X_min = X.min()
         X_max = X.max()
-        print(X_max)
-        print(X_min)
         X = (X - X_min)/(X_max - X_min)
 
         reg_predictions = np.array([])
         d = []
         d.append(X[-window:])
-        print(np.array(d).shape)
         X_temp = np.array(d)
 
 
         for reg in range(8):
-            pred_temp = self.modelcarpa.predict(X_temp)
+            pred_temp = self.model_e1d1.predict(X_temp)
             
             if(len(reg_predictions)==0):
                 reg_predictions = pred_temp
@@ -158,25 +155,22 @@ class model:
         return reg_predictions[0]
 
         
-    def predictinno(self, X):
+    def predict_e2d2(self, X):
         # Insert your preprocessing here
         X = np.array(X)
         X = pd.DataFrame(X)
         X_min = X.min()
         X_max = X.max()
-        print(X_max)
-        print(X_min)
         X = (X - X_min) / (X_max - X_min)
 
         reg_predictions = np.array([])
         reg_predictions_averaged = np.array([])
         d = []
         d.append(X[-window:])
-        print(np.array(d).shape)
         X_temp = np.array(d)
 
         for reg in range(int(pred_length / telescope)):
-            pred_temp = self.modelinno.predict(X_temp)
+            pred_temp = self.model_e2d2.predict(X_temp)
             if len(reg_predictions) == 0:
                 reg_predictions = pred_temp
             else:
@@ -213,20 +207,19 @@ class model:
         return reg_predictions_averaged[0]
 
     def predict(self, X):
-      predinno = self.predictinno(X)
-      predcarpa = self.predictcarpa(X)
+      pred_e2d2 = self.predict_e2d2(X)
+      pred_e1d1 = self.predict_e1d1(X)
 
-      pred = np.zeros(predinno.shape)
+      pred = np.zeros(pred_e2d2.shape)
 
-      pred[:, 0] = predinno[:, 0]
-      pred[:, 1] = predinno[:, 1]
-      pred[:, 2] = predcarpa[:, 2]
-      pred[:, 3] = predinno[:, 3]
-      pred[:, 4] = predinno[:, 4]
-      pred[:, 5] = predcarpa[:, 5]
-      pred[:, 6] = predcarpa[:, 6]
+      pred[:, 0] = pred_e2d2[:, 0]
+      pred[:, 1] = pred_e2d2[:, 1]
+      pred[:, 2] = pred_e1d1[:, 2]
+      pred[:, 3] = pred_e2d2[:, 3]
+      pred[:, 4] = pred_e2d2[:, 4]
+      pred[:, 5] = pred_e1d1[:, 5]
+      pred[:, 6] = pred_e1d1[:, 6]
       
-      print("actual shape:", pred.shape)
       pred = np.expand_dims(pred, axis=0)
 
       return tf.constant(pred[0], dtype="float32")
