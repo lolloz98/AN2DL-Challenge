@@ -46,7 +46,7 @@ Being a classification problem, given an image, the goal is to predict the corre
   - Tomato : 5693
 
 ## Remarks about challenge 2
-Until now, we have been able to achieve a RMSE (Root Mean Squared Error) of **3.7981** overall on a hidden test set.
+We have been able to achieve a RMSE (Root Mean Squared Error) of **3.7108** overall on a hidden test set.
 
 ### The task
 In this homework, you are required to predict future samples of a multivariate time series. 
