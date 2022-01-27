@@ -1,4 +1,6 @@
 # AN2DL-Challenge
+These challenges have been proposed by the course *Artificial Neural Networks and Deep Learning* of [polimi](https://www.polimi.it/).
+
 In these challenges/projects we have been asked to perform **image classification** (challenge 1) and **data forecasting** (challenge 2) using Neural Networks and Deep Learning.
 
 ## Remarks about challenge 1
