@@ -65,3 +65,8 @@ The goal is to design and implement forecasting models to learn how to exploit p
     - 'Soap slipperiness'
     - 'Hype root'
   - Uniform sampling rate.
+
+## Authors
+- [Lorenzo Carpaneto](https://github.com/lolloz98)
+- [Aniello De Santis](https://github.com/Aniello98)
+- [Lorenzo Innocenti](https://github.com/lorenzoinnocenti)

@@ -1,7 +1,0 @@
-|Name      |Surname   |student id |
-|----------|----------|-----------|
-|Lorenzo   |Carpaneto |10768268   |
-|Aniello   |De Santis |10634064   |
-|Lorenzo   |Innocenti |10752015   |
-
-LEADERBOARD NICKNAME: I like big data and i cannot lie

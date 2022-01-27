@@ -1,3 +1,5 @@
+# Challenge2 Report
+
 For this challenge we had a lot of ideas, explored many of them and left out others, due to time constraints. We have mainly focused on trying to understand how to create a good model which could give good predictions, how to set the parameters for the model and how to handle the dataset in a way to maximize the learning curve of the model.
 In particular, for this last point, we have tried many different options (we will present only a few of them here).
 
